@@ -100,7 +100,7 @@ class Graph:
         def dft_helper(vertex, visited):
             if vertex not in visited:
                 visited.add(vertex)
-                #print(vertex)
+                print(vertex)
                 
                 for neighbor in self.get_neighbors(vertex):
                     dft_helper(neighbor, visited)
@@ -121,6 +121,7 @@ class Graph:
             path = queue.dequeue()
             
             if path[-1] not in visited:
+                # Adds vertix not in visited set
                 visited.add(path[-1])
                 
                 for neighbor in self.get_neighbors(path[-1]):
