@@ -100,7 +100,7 @@ class Graph:
         def dft_helper(vertex, visited):
             if vertex not in visited:
                 visited.add(vertex)
-                print(vertex)
+                #print(vertex)
                 
                 for neighbor in self.get_neighbors(vertex):
                     dft_helper(neighbor, visited)
@@ -169,15 +169,21 @@ class Graph:
         def dfs_helper(vertex, visited):
             
             if vertex not in visited:
+                # Adds node to visited set
                 visited.add(vertex)
                 
                 for neighbor in self.get_neighbors(vertex):
-                    dfs_helper(neighbor, visited)
+                    #print("dfs_helper", neighbor)
+                    path = dfs_helper(neighbor, visited)
+                    if path:
+                        # Asterisk unpacks iterable
+                        return [vertex, *path]
                     
             if vertex == destination_vertex:
-                return vertex
+                #print([vertex])
+                return [vertex]
         
-        dfs_helper(starting_vertex, destination_vertex)
+        return dfs_helper(starting_vertex, visited)
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
