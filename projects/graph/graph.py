@@ -39,7 +39,7 @@ class Graph:
         beginning from starting_vertex.
         """
         
-         # Create a q and enqueue starting vertex
+        # Create a q and enqueue starting vertex
         qq = Queue()
         qq.enqueue([starting_vertex])
         # Create a set of traversed vertices
@@ -65,6 +65,8 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
+        
+        # Depth First Traveral
         
         stack = Stack()
         stack.push([starting_vertex])
@@ -94,13 +96,17 @@ class Graph:
         This should be done using recursion.
         """
         
+        # Depth First Traveral Recursive
+        
         visited = set()
         
         def dft_helper(vertex, visited):
+            
             # Adds vertex if not in visited set
             if vertex not in visited:
                 visited.add(vertex)
                 print(vertex)
+                
                 # Finds neighboring vertex of current vertex then 
                 # calls helper function with neighboring vertex 
                 # and current visited set as arguments
@@ -115,6 +121,9 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
+        
+        # Find shortest path
+        
         visited = set()
         queue = Queue()
         queue.enqueue([starting_vertex])
@@ -142,6 +151,9 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
+        
+        # Find a path
+        
         visited = set()
         stack = Stack()
         stack.push([starting_vertex])
@@ -155,7 +167,7 @@ class Graph:
                 
                 # Finds neighboring vertex of current vertex then pushing to stack
                 for neighbor in self.get_neighbors(path[-1]):
-                    new_path = list(path)
+                    new_path = path.copy() # Makes a copy. Same as list(path)
                     new_path.append(neighbor)
                     stack.push(new_path)
             
@@ -172,6 +184,8 @@ class Graph:
         This should be done using recursion.
         """
 
+        # Find a path with recursion
+        
         visited = set()
         
         def dfs_helper(vertex, visited):
@@ -184,10 +198,10 @@ class Graph:
                 # calls helper function with neighboring vertex 
                 # and current visited set as arguments
                 for neighbor in self.get_neighbors(vertex):
-                    #print("dfs_helper", neighbor)
                     path = dfs_helper(neighbor, visited)
                     if path:
                         # Asterisk unpacks iterable
+                        # Similar to spread operator in JavaScript
                         return [vertex, *path]
                     
             # Returns path if vertex is equal to the destination vertex        
