@@ -74,11 +74,12 @@ class Graph:
         while stack.size() > 0:
             path = stack.pop()
             
+            # Adds vertex if not in visited set
             if path[-1] not in visited:
                 print(path[-1])
-                
                 visited.add(path[-1])
                 
+                # Finds neighboring vertex of current vertex then pushes to stack
                 for next_vertex in self.get_neighbors(path[-1]):
                     new_path = list(path)
                     new_path.append(next_vertex)
@@ -92,16 +93,17 @@ class Graph:
 
         This should be done using recursion.
         """
-        # Check if node has been visited
-        # If not in visited add to visited set
         
         visited = set()
         
         def dft_helper(vertex, visited):
+            # Adds vertex if not in visited set
             if vertex not in visited:
                 visited.add(vertex)
                 print(vertex)
-                
+                # Finds neighboring vertex of current vertex then 
+                # calls helper function with neighboring vertex 
+                # and current visited set as arguments
                 for neighbor in self.get_neighbors(vertex):
                     dft_helper(neighbor, visited)
                     
@@ -120,15 +122,17 @@ class Graph:
         while queue.size() > 0:
             path = queue.dequeue()
             
+            # Adds vertex not in visited set into set
             if path[-1] not in visited:
-                # Adds vertix not in visited set
                 visited.add(path[-1])
                 
+                # Finds neighboring vertex of current vertex then adds to queue
                 for neighbor in self.get_neighbors(path[-1]):
                     new_path = list(path)
                     new_path.append(neighbor)
                     queue.enqueue(new_path)
-            
+                    
+            # Returns path if vertex is equal to the destination vertex
             if path[-1] == destination_vertex:
                 return path
 
@@ -145,14 +149,17 @@ class Graph:
         while stack.size() > 0:
             path = stack.pop()
             
+            # Adds vertex not in visited set into set
             if path[-1] not in visited:
                 visited.add(path[-1])
                 
+                # Finds neighboring vertex of current vertex then pushing to stack
                 for neighbor in self.get_neighbors(path[-1]):
                     new_path = list(path)
                     new_path.append(neighbor)
                     stack.push(new_path)
-                    
+            
+            # Returns path if vertex is equal to the destination vertex
             if path[-1] == destination_vertex:
                 return path
 
@@ -169,10 +176,13 @@ class Graph:
         
         def dfs_helper(vertex, visited):
             
+            # Adds vertex not in visited set into set
             if vertex not in visited:
-                # Adds node to visited set
                 visited.add(vertex)
                 
+                # Finds neighboring vertex of current vertex then 
+                # calls helper function with neighboring vertex 
+                # and current visited set as arguments
                 for neighbor in self.get_neighbors(vertex):
                     #print("dfs_helper", neighbor)
                     path = dfs_helper(neighbor, visited)
@@ -180,6 +190,7 @@ class Graph:
                         # Asterisk unpacks iterable
                         return [vertex, *path]
                     
+            # Returns path if vertex is equal to the destination vertex        
             if vertex == destination_vertex:
                 #print([vertex])
                 return [vertex]
