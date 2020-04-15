@@ -31,14 +31,9 @@ def earliest_ancestor(ancestors, starting_node):
                     temp_path = [*path, parent]                  
                     stack.push(temp_path)
 
-        # Sets farthest_path as path if path is larger
-        if len(path) > len(farthest_path):
-            farthest_path = path
-            
-        # If path and farthest_path are equal and vertex is 
-        # greater than the last vertex in farthest_path
-        # set farthest_path as path
-        if len(path) == len(farthest_path) and vertex < farthest_path[-1]:
+        # Sets farthest_path as path if path's length is larger 
+        # or the vertex is larger than the last node in farthest_path
+        if len(path) > len(farthest_path) or vertex < farthest_path[-1]:
             farthest_path = path
     
     # If the input individual has no parents, return -1.       
