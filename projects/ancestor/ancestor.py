@@ -8,40 +8,45 @@
 from util import Stack
 
 def earliest_ancestor(ancestors, starting_node):
-    
     stack = Stack()
     stack.push([starting_node])
-    
-    visited = set()
-    # print("visited", visited)
-    # print("stack", stack)
-    
-    # Look for farthest distance from the starting node
+     
     farthest_path = []
+    visited = set()
     
     while stack.size() > 0:
         path = stack.pop()
-        print(path)
+        vertex = path[-1]
         
-        
-        
-        
-        
-        if path[-1] not in visited:
-            visited.add(path[-1])
+        if vertex not in visited:
+            visited.add(vertex)
             
+            # Loops through parent/child pairs
             for pair in ancestors:
-                if pair[1] == path[-1]:
-                    #print(pair[1], path[-1])
-                    new_path = [*path, pair[0]]
-                    print("first", new_path)
-                    #new_path.append(pair[0])
-                    stack.push(new_path)
-                    #print("new_path", new_path)
-                    
+                parent = pair[0]
+                child = pair[1]
+                
+                # Pushes path and parent to stack if child and vertex are equal
+                if child == vertex:
+                    temp_path = [*path, parent]                  
+                    stack.push(temp_path)
+
+        # Sets farthest_path as path if path is larger
+        if len(path) > len(farthest_path):
+            farthest_path = path
+            
+        # If path and farthest_path are equal and vertex is 
+        # greater than the last vertex in farthest_path
+        # set farthest_path as path
+        if len(path) == len(farthest_path) and vertex < farthest_path[-1]:
+            farthest_path = path
+    
+    # If the input individual has no parents, return -1.       
     if starting_node == farthest_path[-1]:
             return -1    
-        
+    
+    return farthest_path[-1]   
+
 test_ancestors = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
 
-print(earliest_ancestor(test_ancestors, 9))
+print(earliest_ancestor(test_ancestors, 6))
